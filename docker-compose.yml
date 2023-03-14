@@ -33,14 +33,12 @@ services:
     networks:
       - simples
     volumes:
-      # - .:/usr/src/consumer-one/
       - consumer_one:/usr/src/consumer-one/
       - node_modules:/usr/src/node_modules/
     restart: unless-stopped
 
   producer-one:
     container_name: producer-one
-    # image: api-rabbit:1.0.0
     build:
       context: .
       target: development
@@ -54,7 +52,6 @@ services:
     networks:
       - simples
     volumes:
-      # - .:/usr/src/producer-one/
       - producer_one:/usr/src/producer-one/
       - node_modules:/usr/src/node_modules/
     restart: unless-stopped
