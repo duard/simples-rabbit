@@ -1,14 +1,14 @@
 FROM node:14.5.0-alpine AS development
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/consumer-one
 
-COPY package*.json ./
+COPY ./consumer-one/package*.json ./
 
 RUN npm install glob rimraf
 
 RUN npm install --only=development
 
-COPY . .
+COPY ./consumer-one/ .
 
 RUN npm run build
 
@@ -17,14 +17,12 @@ FROM node:14.5.0-alpine as production
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/consumer-one
 
-COPY package*.json ./
+COPY ./consumer-one/package*.json ./
 
 RUN npm install --only=production
 
-COPY . .
+COPY ./consumer-one/ .
 
-COPY --from=development /usr/src/app/dist ./dist
-
-# CMD ["node", "dist/main"]
+COPY --from=development /usr/src/consumer-one/dist ./dist
