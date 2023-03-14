@@ -1,28 +1,35 @@
-FROM node:14.5.0-alpine AS development
-
+FROM node:18.12.1-alpine3.16 AS development
 WORKDIR /usr/src/consumer-one
-
 COPY ./consumer-one/package*.json ./
-
-RUN npm install glob rimraf
-
-RUN npm install --only=development
-
+RUN npm ci
 COPY ./consumer-one/ .
-
+# RUN chown root:root -R /home/node/
 RUN npm run build
+# FROM node:14.5.0-alpine AS development
 
-FROM node:14.5.0-alpine as production
+# WORKDIR /usr/src/consumer-one
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+# COPY ./consumer-one/package*.json ./
 
-WORKDIR /usr/src/consumer-one
+# RUN npm install glob rimraf
 
-COPY ./consumer-one/package*.json ./
+# RUN npm install --only=development
 
-RUN npm install --only=production
+# COPY ./consumer-one/ .
 
-COPY ./consumer-one/ .
+# RUN npm run build
 
-COPY --from=development /usr/src/consumer-one/dist ./dist
+# FROM node:14.5.0-alpine as production
+
+# ARG NODE_ENV=production
+# ENV NODE_ENV=${NODE_ENV}
+
+# WORKDIR /usr/src/consumer-one
+
+# COPY ./consumer-one/package*.json ./
+
+# RUN npm install --only=production
+
+# COPY ./consumer-one/ .
+
+# COPY --from=development /usr/src/consumer-one/dist ./dist

@@ -39,6 +39,6 @@ async function bootstrap() {
   // await app.startAllMicroservices();
   await app.listen(port);
 
-  Logger.log(`🚀🚀 running on: http://localhost:${port}/`, `${name}`);
+  Logger.log(`🚀 running on: http://localhost:${port}/`, `${name}`);
 }
 bootstrap();

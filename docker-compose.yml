@@ -32,9 +32,11 @@ services:
     command: npm run start:dev
     networks:
       - simples
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     volumes:
       - consumer_one:/usr/src/consumer-one/
-      - node_modules:/usr/src/node_modules/
+      # - node_modules:/usr/src/consumer-one/node_modules/
     restart: unless-stopped
 
   producer-one:
@@ -47,13 +49,16 @@ services:
       - rabbitmq
     ports:
       - '5000:5000'
+
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
     env_file: ./producer-one/.development.env
     command: npm run start:dev
     networks:
       - simples
     volumes:
       - producer_one:/usr/src/producer-one/
-      - node_modules:/usr/src/node_modules/
+      # - node_modules:/usr/src/producer-one/node_modules/
     restart: unless-stopped
 
 volumes:
@@ -61,7 +66,7 @@ volumes:
   mongodb_data:
   producer_one:
   consumer_one:
-  node_modules:
+  # node_modules:
 
 networks:
   simples:

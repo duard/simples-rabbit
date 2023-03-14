@@ -43,6 +43,6 @@ export class AppModule {
     const host = configService.get('RABBITMQ_HOST');
     const queueName = configService.get('RABBITMQ_QUEUE_NAME');
 
-    console.log(`${queueName} amqp://${user}:${password}@${host}`);
+    console.log(`consumer ${queueName} amqp://${user}:${password}@${host}`);
   }
 }

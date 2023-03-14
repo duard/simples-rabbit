@@ -1,31 +1,10 @@
-FROM node:14.5.0-alpine AS development
-
+FROM node:18.12.1-alpine3.16 AS development
 WORKDIR /usr/src/producer-one
-
 COPY ./producer-one/package*.json ./
-
-RUN npm install glob rimraf
-
-RUN npm install --only=development
-
+RUN npm install
 COPY ./producer-one/ .
-
+# RUN chown root:root -R /home/node/
 RUN npm run build
-
-FROM node:14.5.0-alpine as production
-
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /usr/src/producer-one
-
-COPY ./producer-one/package*.json ./
-
-RUN npm install --only=production
-
-COPY ./producer-one/ .
-
-COPY --from=development /usr/src/producer-one/dist ./dist
 
 EXPOSE 8080:8080
 EXPOSE 5672:5672

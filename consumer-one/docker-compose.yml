@@ -3,8 +3,8 @@ version: '3.8'
 services:
     server:
         image: rabbitmq:3-management
-    dev:
-        container_name: api_catalogo
+    consumer-one:
+        container_name: consumer_one
         # image: api-catalogo:1.0.0
         links:
             - "server:server"

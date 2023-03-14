@@ -16,7 +16,7 @@ async function bootstrap() {
   await app.listen(port);
 
   Logger.log(
-    `🚀 running on: http://localhost:${port}/${globalPrefix}`,
+    `🚀 rdunning on: http://localhost:${port}/${globalPrefix}`,
     `${name}`,
   );
 }

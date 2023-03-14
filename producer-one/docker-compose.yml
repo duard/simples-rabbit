@@ -16,8 +16,8 @@ services:
       - ./.development.env
     extra_hosts:
       - 'host.docker.internal:host-gateway'
-  dev:
-    container_name: api_rabbit
+  producer-one:
+    container_name: producer-one
     # image: api-rabbit:1.0.0
     build:
       context: .
@@ -32,6 +32,8 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    extra_hosts:
+        - "host.docker.internal:host-gateway"
     restart: unless-stopped
 
 networks:
